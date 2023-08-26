@@ -1,7 +1,7 @@
-# Url Shortener.
+# Url Shortener
 
 A simple url shortener written in Node JS using Express and MongoDB.<br>
-Description: automatically redirects to saved "long" urls and counts clicks per url, also has an API access point to add, edit, view or delete urls via an external app.
+Description: automatically redirects to saved "long" urls, counts clicks per url and has an API access point to add/edit/view/delete urls via an external app.
 
 > To get the most use out of it - have the app running on a hosting service so it can be accessed from any device. Ideally you'd need a short domain as well for this app to make sense.
 
@@ -20,7 +20,7 @@ The `LOCAL` parameter should only exist locally on your pc, don't include it in 
 3. Create file in your MongoDB database according to the schema in `schemas/access.js`:
 
 ```
-urlLocal: <local url for the app, for example `http://localhost:8080/`, will be used when app is running locally>
+urlLocal: <local url for the app, for example `http://localhost:8080/`>
 urlRemote: <url of the hosted app>
 key: <key for your API, will need to be used by external apps to access your API>
 ```
@@ -36,8 +36,9 @@ key: <key for your API, will need to be used by external apps to access your API
 - key - The API key mentioned previously.
 - act - Can be one of the following: new, page, label, url, search, delete.
 - u - The url you'd like to shorten.
-- p - The url extension your short url will get. For example if your urlRemote=`https://myapp.com` and p=`page`, then the short url you've registered will be at `https://myapp.com/page`
-- l - A readable name for your short url.
+- p - The url extension your short url will get. For example,<br>
+  if your urlRemote=`https://myapp.com` and p=`page`, the short url you've registered will be at `https://myapp.com/page`.
+- l (lowercase L) - A readable name for your short url. 
 - rb - Name or ID (depending on platform) of the user that registered the short url.
 
 Extra:
@@ -55,13 +56,14 @@ The response can be a string indicating an error, or an object containing the fi
 - orgUrl
 - registeredBy
 - clicks
-  > Search will return an array of objects instead. (or an empty array)
+
+> Search will return an array of objects instead. (or an empty array)
 
 ## Registering new short url
 
 ### act=new
 
-```
+```Javascript
 GET <urlRemote>api?key=<key>&act=new&u=<url>&p=<page>&l=<label>&rb=<user>
 ```
 
@@ -73,7 +75,7 @@ To edit a short url the `rb` parameter has to be the same as the user that regis
 
 Update url extension of an existing short url.
 
-```
+```Javascript
 GET <urlRemote>api?key=<key>&act=page&p=<page>&np=<npage>&rb=<user>
 ```
 
@@ -81,7 +83,7 @@ GET <urlRemote>api?key=<key>&act=page&p=<page>&np=<npage>&rb=<user>
 
 Update label of an existing short url.
 
-```
+```Javascript
 GET <urlRemote>api?key=<key>&act=label&p=<page>&nl=<nlabel>&rb=<user>
 ```
 
@@ -89,7 +91,7 @@ GET <urlRemote>api?key=<key>&act=label&p=<page>&nl=<nlabel>&rb=<user>
 
 Update url of an existing short url.
 
-```
+```Javascript
 GET <urlRemote>api?key=<key>&act=url&p=<page>&nu=<nurl>&rb=<user>
 ```
 
@@ -101,13 +103,13 @@ Searching will by default only return urls registered by the user passed in `rb`
 
 Required parameters:
 
-```
+```Javascript
 GET <urlRemote>api?key=<key>&act=search&rb=<user>
 ```
 
 Optional parameters:
 
-```
+```Javascript
 u=<url>
 p=<page>
 l=<label>
@@ -121,7 +123,7 @@ To delete a short url the `rb` parameter has to be the same as the user that reg
 
 ### act=delete
 
-```
+```Javascript
 GET <urlRemote>api?key=<key>&act=delete&p=<page>&l=<label>&rb=<user>
 ```
 
