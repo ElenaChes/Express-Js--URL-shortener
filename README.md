@@ -26,20 +26,21 @@ key: <key for your API, will need to be used by external apps to access your API
 ```
 
 4. Replace `public/images/favicon.ico` with an icon of your choice.
-5. Run `npm i`
-6. Start `index.js`.
+5. Update the landing page `views/home.ejs` and the stylesheet `public/css/style.css` for your liking.
+6. Run `npm i`
+7. Start `index.js`.
 
 # API actions
 
 ## Parameters:
 
 - key - The API key mentioned previously.
-- act - Can be one of the following: new, page, label, url, search, delete.
-- u - The url you'd like to shorten.
-- p - The url extension your short url will get. For example,<br>
+- act - Action: Can be one of the following: new, page, label, url, search, delete.
+- u - Url: The url you'd like to shorten.
+- p - Page: The url extension your short url will get. For example,<br>
   if your urlRemote=`https://myapp.com` and p=`page`, the short url you've registered will be at `https://myapp.com/page`.
-- l (lowercase L) - A readable name for your short url. 
-- rb - Name or ID (depending on platform) of the user that registered the short url.
+- l (lowercase L) - Label: A readable name for your short url. 
+- rb - Registered By: Name or ID (depending on platform) of the user that registered the short url.
 
 Extra:
 
@@ -127,6 +128,17 @@ To delete a short url the `rb` parameter has to be the same as the user that reg
 GET <urlRemote>api?key=<key>&act=delete&p=<page>&l=<label>&rb=<user>
 ```
 
+## Refreshing app's database
+
+To refresh the database the `rb` parameter has to be equal to `<key>`.<br>
+Note that if accessed via the API, the database gets refreshed automatically, this action is only necessary if the database was updated manually via MongoDB.
+
+### act=refresh
+
+```Javascript
+GET <urlRemote>api?key=<key>&act=refresh&rb=<user>
+```
+
 # Creating short urls directly inside MongoDB
 
 The files will need to be according to the schema in `schemas/urlpair.js`.
@@ -138,6 +150,7 @@ label: <A readable name for your short url>
 registeredBy: <Name or ID of the user that registered the short url>
 clicks: 0
 ```
+After adding files directly to MongoDB, the app will need to be restarted or refreshed via the API.
 
 # Usage
 
