@@ -9,7 +9,7 @@ Description: automatically redirects to saved "long" urls, counts clicks per url
 <details>
   <summary><h3>Content</h3></summary>
   
- - [Instalation](#installation)
+ - [Installation](#installation)
  - [API actions](#api-actions)
    - [Parameters](#parameters)
    - [Responses](#responses)
