@@ -68,7 +68,7 @@ async function refreshPairs(url, access) {
   }
 }
 const codes = {
-  acc: 202,
+  ok: 200,
   permRedir: 308,
   badReq: 400,
   unaothReq: 401,

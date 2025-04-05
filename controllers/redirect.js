@@ -6,7 +6,7 @@ var refreshPairs;
 var codes;
 var url;
 var access;
-/*202: Accepted - everything is ok.
+/*200: Ok - everything is ok.
 /*308: Permanent Redirect - this url will always redirect to this path.
 /*400: Bad request - incorrect request syntax.
 /*401: Unauthorized - missing identification.

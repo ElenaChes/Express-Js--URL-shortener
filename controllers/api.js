@@ -8,7 +8,7 @@ var refreshPairs;
 var codes;
 var url;
 var access;
-/*202: Accepted - everything is ok.
+/*200: Ok - everything is ok.
 /*308: Permanent Redirect - this url will always redirect to this path.
 /*400: Bad request - incorrect request syntax.
 /*401: Unauthorized - missing identification.
@@ -67,7 +67,7 @@ async function apiNew(res, u, p, l, rb, pair) {
     await refreshPairs();
     var msg = "Short url has been registered.";
     var response = { message: msg, label: l, shortUrl: `${url}${p}`, orgUrl: u, registeredBy: rb };
-    return res.json({ status: codes.acc, response: response });
+    return res.json({ status: codes.ok, response: response });
   }
   return res.json({ status: codes.badReq, response: `Page \`${url}${p}\` is already taken.` });
 }
@@ -88,7 +88,7 @@ async function apiEditPage(res, p, np, rb, pair) {
   var msg = "Short url has been updated.";
   //prettier-ignore
   var response = { message: msg, label: pair.label, shortUrl: `${url}${np}`, orgUrl: pair.url, registeredBy: pair.registeredBy, clicks: pair.clicks || 0 };
-  return res.json({ status: codes.acc, response: response });
+  return res.json({ status: codes.ok, response: response });
 }
 //[Update url]
 async function apiEditUrl(res, p, nu, rb, pair) {
@@ -104,7 +104,7 @@ async function apiEditUrl(res, p, nu, rb, pair) {
   var msg = "Short url has been updated.";
   //prettier-ignore
   var response = { message: msg, label: pair.label, shortUrl: `${url}${p}`, orgUrl: nu, registeredBy: pair.registeredBy, clicks: pair.clicks || 0 };
-  return res.json({ status: codes.acc, response: response });
+  return res.json({ status: codes.ok, response: response });
 }
 //[Change label]
 async function apiEditLabel(res, p, nl, rb, pair) {
@@ -120,7 +120,7 @@ async function apiEditLabel(res, p, nl, rb, pair) {
   var msg = "Short url has been updated.";
   //prettier-ignore
   var response = { message: msg, label: nl, shortUrl: `${url}${p}`, orgUrl: pair.url, registeredBy: pair.registeredBy, clicks: pair.clicks || 0 };
-  return res.json({ status: codes.acc, response: response });
+  return res.json({ status: codes.ok, response: response });
 }
 //[Search in urls]
 async function apiSearch(res, u, p, l, rb) {
@@ -149,7 +149,7 @@ async function apiSearch(res, u, p, l, rb) {
     if (a.clicks > b.clicks) return 1;
     return 0;
   });
-  return res.json({ status: codes.acc, response: response });
+  return res.json({ status: codes.ok, response: response });
 }
 //[Delete a url]
 async function apiDelete(res, p, l, rb, pair) {
@@ -166,7 +166,7 @@ async function apiDelete(res, p, l, rb, pair) {
   await pair.delete();
   //[Refresh Database]
   await refreshPairs();
-  return res.json({ status: codes.acc, response: response });
+  return res.json({ status: codes.ok, response: response });
 }
 //[Refresh database]
 async function apiRefresh(res, rb) {
@@ -191,7 +191,7 @@ async function apiRefresh(res, rb) {
   var response = {
     message: [`Databse refreshed succesefully.`, `${aAmount} added.`, `${rAmount} removed.`, `${cAmount} changed.`],
   };
-  return res.json({ status: codes.acc, response: response });
+  return res.json({ status: codes.ok, response: response });
 }
 //aid func
 function prep(p, r, c, u, a) {
