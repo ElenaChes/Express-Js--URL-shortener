@@ -14,8 +14,8 @@ connection.on("connected", async () => {
   await webhookLog(dbLabel + " Database connected.");
 });
 
-connection.on("err", async (err) => {
-  console.log(err);
+connection.on("err", async (error) => {
+  console.error(error);
   await webhookLog(dbLabel + " connection error.");
 });
 

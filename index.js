@@ -71,7 +71,7 @@ let server;
     });
   } catch (error) {
     await webhookLog(dbLabel + chalk.red(" Couldn't connect to database."));
-    console.log(error);
+    console.error(error);
     console.timeEnd("Load time");
     process.exit(1);
   }
@@ -79,8 +79,8 @@ let server;
 
 //[Process events]
 setShutdownHandler(async (code) => {
-  if (mongoose.connection) {
-    mongoose.connection.close();
+  if (mongoose.connection?.readyState === 1) {
+    await mongoose.connection.close();
   }
 
   await webhookLog(appLabel + " App closed.");

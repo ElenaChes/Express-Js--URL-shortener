@@ -1,17 +1,21 @@
 //[Imports]
 const state = require("../services/sharedData");
 const respond = require("../utils/respond");
+const { ACCESS_KEY } = process.env;
 
 //[Check valid access key]
 exports.checkAccess = (req, res, next) => {
   try {
-    const access = state?.getAccess();
-    if (!state || !access) return respond.error(res, "Server loading, try again later.", 500);
+    if (!ACCESS_KEY) {
+      console.log("checkAccess: No ACCESS_KEY was found.");
+      return respond.error(res, "Something went wrong while processing request.", 500);
+    }
+    if (!state) return respond.error(res, "Server loading, try again later.", 500);
     const key = req.headers?.authorization?.split(" ")?.[1];
-    if (!key || key !== access) return respond.error(res, "Unauthorized.", 401);
+    if (!key || key !== ACCESS_KEY) return respond.error(res, "Unauthorized.", 401);
     next();
   } catch (error) {
-    console.log(error);
+    console.error(error);
     return respond.error(res, "Something went wrong while processing request.", 500);
   }
 };
@@ -36,7 +40,7 @@ exports.checkOwner = (req, res, next, val) => {
     res.locals.pair = pair;
     next();
   } catch (error) {
-    console.log(error);
+    console.error(error);
     return respond.error(res, "Something went wrong while processing request.", 500);
   }
 };

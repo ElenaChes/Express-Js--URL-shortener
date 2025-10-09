@@ -9,7 +9,6 @@ let appUrl = "";
 
 //[Access to data]
 const getPairs = () => pairs;
-const getAccess = () => access?.key;
 const getAppUrl = () => appUrl;
 const isAdmin = (userId) => access?.admins?.includes(userId);
 
@@ -29,10 +28,10 @@ async function refreshPairs() {
     appUrl = process.env.LOCAL ? access.urlLocal : access.urlRemote;
     return true;
   } catch (error) {
-    console.log(error);
+    console.error(error);
     return false;
   }
 }
 
-//[Exports]
-module.exports = { getPairs, getAccess, getAppUrl, isAdmin, refreshPairs };
+//[Export]
+module.exports = { getPairs, getAppUrl, isAdmin, refreshPairs };

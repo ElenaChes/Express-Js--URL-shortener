@@ -1,8 +1,11 @@
 //[Variables]
 const { APP_NAME, APP_AVATAR, WEBHOOK_URL } = process.env;
 const contentFormatting = (log) => {
+  const clean = log.replace(/\x1B\[\d+m/g, ""); //remove chalk colors
   //custom formatting (adjusted for discord code blocks)
-  return `\`\`\`ansi\n${log.replace(/\x1B\[(\d+)m/g, (_, code) => `\u001b[2;${code}m`)}\n\`\`\``;
+  if (clean.startsWith("[App]")) return `\`\`\`less\n${clean}\n\`\`\``;
+  if (clean.startsWith("[DB]")) return `\`\`\`css\n${clean}\n\`\`\``;
+  return `\`\`\`\n${clean}\n\`\`\``; //default - no color
 };
 
 async function sendWebhook(body) {

@@ -6,7 +6,6 @@ const accessSchema = new Schema(
   {
     urlLocal: { type: String, default: "http://localhost:8080/" },
     urlRemote: String,
-    key: { type: String, required: true },
     admins: { type: [String], default: [] },
   },
   { versionKey: false }
